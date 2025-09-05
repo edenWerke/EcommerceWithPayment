@@ -3,6 +3,8 @@ import Stripe from "stripe"
 import {Card} from "./ui/card"
 import {useState,useEffect} from 'react'
 import Image from "next/image"
+import { CardContent } from "./ui/card"
+import {  CardTitle} from './ui/card'
 interface Props{
    products:Stripe.Product[]
 }
@@ -20,14 +22,30 @@ setCurrent((prev)=>(prev+1)%products.length)
   const price=currentProduct.default_price as Stripe.Price
   return <Card>
     {currentProduct.images && currentProduct.images[0]&& (
-        <div>
-            <Image
-        alt={currentProduct.name}
-        src={currentProduct.images[0]}
-        layout="fill"
-        objectFit="cover"
-        /></div>
-    )}
+    //     <div>
+    //         <Image
+    //     alt={currentProduct.name}
+    //     src={currentProduct.images[0]}
+    //     layout="fill"
+    //    objectFit="cover"
+    //     /></div>
+    <div className="w-64 h-40 relative">
+  <Image
+    alt={currentProduct.name}
+    src={currentProduct.images[0]}
+    layout="responsive"
+    width={256}
+    height={160}
+    objectFit="contain"
+  />
+</div>
 
+    )}
+<CardContent>
+
+   
+    <CardTitle>{currentProduct.name}</CardTitle>
+{price && price.unit_amount && <p>${price.unit_amount/100}</p>}
+</CardContent>
   </Card>
 }
