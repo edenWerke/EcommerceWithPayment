@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import Image from "next/image";
-
+import { Button } from "./button";
 interface Props {
   product: Stripe.Product;
 }
@@ -26,6 +26,9 @@ export const ProductDetail = ({ product }: Props) => {
             )}
 {product.description &&<p className="text-lg text-gray-800">{product.description}</p>}
       </div>
+      <Button variant="outline">-</Button>
+     <span>0</span>
+      <Button variant="outline">+</Button>
     </div>
   );
 };
