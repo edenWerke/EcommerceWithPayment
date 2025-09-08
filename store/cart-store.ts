@@ -12,6 +12,8 @@ export interface CartItem {
 interface CartStore {
   items: CartItem[];
   addItem: (item: CartItem) => void;
+  removeItem: (id: string) => void;
+  clear: () => void;
 }
 
 export const useCartStore = create<CartStore>()(
@@ -37,9 +39,17 @@ export const useCartStore = create<CartStore>()(
           }
         });
       },
+      removeItem: (id) =>
+        set((state) => ({
+       
+        })),
+      clear: () =>
+        set(() => ({
+          items: [],
+        })),
     }),
     {
-      name: "cart" // this is required
+      name: "cart", // storage key for persistence
     }
   )
 );
