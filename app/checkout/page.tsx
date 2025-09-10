@@ -5,7 +5,7 @@ import { CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 export default function ProductPage() {
-  const { items, addItem, removeItem } = useCartStore();
+const { items, addItem, removeItem ,clear} = useCartStore();
   
   const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
   
@@ -52,8 +52,11 @@ export default function ProductPage() {
       </Card>
       
       <form className="mt-5">
-        <Button variant="default" className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
+        <Button type='submit' variant="default" className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
           Proceed to Payment
+        </Button>
+        <Button onClick={()=>clear()} variant="default" className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
+          clear cart
         </Button>
       </form>
     </div>
