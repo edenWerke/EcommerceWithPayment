@@ -62,6 +62,21 @@ const Navbar = () => {
          </Button>
         </div>
       </div>
+      {mobileOpen && (
+        <nav>
+          <ul>
+            <li>
+              <Link href="/">Home</Link>
+              </li>
+            <li>
+              <Link href="/products">products</Link>
+              </li>
+            <li>
+              <Link href="/Checkout">Checkout</Link>
+              </li>
+          </ul>
+        </nav>
+      )}
     </nav>
   );
 };
