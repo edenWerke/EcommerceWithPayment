@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ShoppingCartIcon,Bars3Icon,XMarkIcon } from "@heroicons/react/24/outline";
 import { useCartStore } from "@/store/cart-store";
 import { useState } from "react";
+import { Button } from "./ui/button";
 const Navbar = () => {
   const [mobileOpen,setMobileOpen]=useState<boolean>(false)
   const {items}=useCartStore()
@@ -56,6 +57,9 @@ const Navbar = () => {
           <span>{cartCount}</span>
          )}
          </Link>
+        <Button variant="ghost" onClick={() => setMobileOpen(prev => !prev)}>
+          {mobileOpen ? <XMarkIcon/> : <Bars3Icon/>}
+         </Button>
         </div>
       </div>
     </nav>
