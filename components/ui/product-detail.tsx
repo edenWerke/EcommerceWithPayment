@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const ProductDetail = ({ product }: Props) => {
-  const { items, addItem } = useCartStore();
+  const { items, addItem,removeItem } = useCartStore();
   const price = product.default_price as Stripe.Price;
 
   // Fixed find: return the comparison
@@ -52,7 +52,7 @@ export const ProductDetail = ({ product }: Props) => {
         )}
       </div>
       <div className="flex items-center gap-4">
-        <Button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">
+        <Button onClick={()=>removeItem(product.id)} className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">
           -
         </Button>
         <span className="text-lg font-medium">{quantity}</span>
