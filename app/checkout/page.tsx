@@ -34,7 +34,7 @@ export default function ProductPage() {
         </Button>
         <span className="text-lg font-medium">{item.quantity}</span>
         <Button
-          onClick={()=>addItem(item)}
+          onClick={()=>addItem({...item ,quantity:1})}
           className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
         >
           +
@@ -43,6 +43,9 @@ export default function ProductPage() {
                   </li>
                 ))}
             </ul>
+            <div>
+              total:${(total/100).toFixed(2)}
+            </div>
         </CardContent>
     </Card>
     
