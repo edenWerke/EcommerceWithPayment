@@ -3,6 +3,7 @@ import { useCartStore } from "@/store/cart-store";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { checkoutAction } from "./checkout-action";
 
 export default function ProductPage() {
 const { items, addItem, removeItem ,clear} = useCartStore();
@@ -51,7 +52,8 @@ const { items, addItem, removeItem ,clear} = useCartStore();
         </CardContent>
       </Card>
       
-      <form className="mt-5">
+      <form action={checkoutAction} className="mt-5">
+        <input type='hidden' name="items" value ={JSON.stringify(items)}/>
         <Button type='submit' variant="default" className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
           Proceed to Payment
         </Button>
