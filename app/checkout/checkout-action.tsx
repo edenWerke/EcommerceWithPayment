@@ -1,23 +1,26 @@
-import { CartItem } from "@/store/cart-store"
-import stripe from "stripe"
-export const checkoutAction=async(formData:FormData):Promise<void>=>{
-  const itemsJson=formData.get("items")as string
-  const items=JSON.parse(itemsJson)
-  const line_items=  items.map((item:CartItem)=>({
-price_data:{
-    currency:"cad",
-    product_data:{
-        name:item.name
-    },
-    unit_amount:item.quantity,
-}
-  }))
-  const session=await stripe.checkout.sessions.create({
-    payment_method_types:["card"],
-    line_items,
-    mode:"payment",
-    success_url:`${process.env.NEXT_PUBLIC_BASE_URL}/success`,
-    cancle_url:`${process.env.NEXT_PUBLIC_BASE_URL}/checkout/`,
+"use server";
+import { CartItem } from "@/store/cart-store";
+import { stripe } from "@/lib/stripe";
+import {redirect} from "next/navigation"
+export const checkoutAction = async (formData: FormData): Promise<void> => {
+  const itemsJson = formData.get("items") as string;
+  const items = JSON.parse(itemsJson);
 
-  })
-}
+  const line_items = items.map((item: CartItem) => ({
+    price_data: {
+      currency: "cad",
+      product_data: { name: item.name },
+      unit_amount: item.price, // in cents
+    },
+    quantity: item.quantity,
+  }));
+
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items,
+    mode: "payment",
+    success_url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+    cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout`, // fixed typo
+  });
+  redirect(session.url!);
+};
