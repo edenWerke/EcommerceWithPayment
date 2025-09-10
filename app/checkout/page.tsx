@@ -21,7 +21,14 @@ export default function ProductPage() {
         <CardContent>
 
             <ul>
-                
+                {items.map((item,key)=>(
+                  <li key={key}>
+                    <div>
+                      <span>{item.name}</span>
+                      <span>{(item.price*item.quantity/100).toFixed(2)}</span>
+                    </div>
+                  </li>
+                ))}
             </ul>
         </CardContent>
     </Card>
