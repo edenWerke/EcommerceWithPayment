@@ -1,7 +1,23 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Link from "next/link";
-
+import { ShoppingCartIcon,Bars3Icon,XMarkIcon } from "@heroicons/react/24/outline";
+import { useCartStore } from "@/store/cart-store";
+import { useState } from "react";
 const Navbar = () => {
+  const [mobileOpen,setMobileOpen]=useState<boolean>(false)
+  const {items}=useCartStore()
+  const cartCount=items.reduce((acc,item)=>acc+item.quantity,0)
+  
+  useEffect(()=>{
+    const handleResize=()=>{
+      if (window.innerWidth>=768){
+        setMobileOpen(false)
+      }
+    }
+    window.addEventListener('resize',handleResize)
+    return ()=>window.removeEventListener("resize",handleResize)
+  },[])
   return (
     <nav className="bg-gray-900 text-white px-6 py-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
@@ -34,10 +50,12 @@ const Navbar = () => {
 
         {/* Cart */}
         <div className="relative cursor-pointer">
-          <span className="material-icons">shopping_cart</span>
-          <span className="absolute -top-2 -right-2 bg-red-600 text-xs px-2 py-0.5 rounded-full">
-            3
-          </span>
+          <Link href="/checkout" className="hover:text-yellow-400 transition-colors duration-300">
+         <ShoppingCartIcon/>
+         {cartCount >0 && (
+          <span>{cartCount}</span>
+         )}
+         </Link>
         </div>
       </div>
     </nav>
