@@ -57,7 +57,7 @@ const Navbar = () => {
           <span>{cartCount}</span>
          )}
          </Link>
-        <Button variant="ghost" onClick={() => setMobileOpen(prev => !prev)}>
+        <Button className="md:hidden" variant="ghost" onClick={() => setMobileOpen(prev => !prev)}>
           {mobileOpen ? <XMarkIcon/> : <Bars3Icon/>}
          </Button>
         </div>
